@@ -1,8 +1,11 @@
+import React from 'react'
 import './App.css'
 
 const App = () => {
   return (
-    <div>Welcome to E-Learning Platform</div>
+    <div>
+      <h1>Welcome to E-Learning Platform</h1>
+    </div>
   )
 }
 
