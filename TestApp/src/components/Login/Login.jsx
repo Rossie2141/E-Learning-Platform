@@ -1,0 +1,62 @@
+import React, { useState } from 'react';
+import { Button, TextField, Typography, Box, Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Hardcoded credentials for simulation
+    if (email === 'user@example.com' && password === 'password123') {
+      // Successful login, redirect to the Home page
+      navigate('/home');
+    } else {
+      setError('Invalid credentials, please try again.');
+    }
+  };
+
+  const handleSignUpRedirect = () => {
+    // Navigate to the sign-up page
+    navigate('/signup');
+  };
+
+  return (
+    <Box sx={{ width: '100%', maxWidth: 400, margin: '50px auto', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+      <Typography variant="h4" align="center" sx={{ marginBottom: '20px' }}>Login</Typography>
+      {error && <Alert severity="error">{error}</Alert>}
+      <form onSubmit={handleLogin}>
+        <TextField
+          label="Email"
+          variant="outlined"
+          fullWidth
+          sx={{ marginBottom: '15px' }}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          fullWidth
+          sx={{ marginBottom: '15px' }}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button variant="contained" color="primary" fullWidth type="submit" sx={{ marginBottom: '15px' }}>
+          Login
+        </Button>
+      </form>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button variant="text" color="primary" onClick={handleSignUpRedirect} sx={{ marginRight: '10px' }}>
+            Dont have an account?Sign Up
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+
+export default Login;
