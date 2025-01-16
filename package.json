@@ -1,10 +1,14 @@
 {
   "dependencies": {
+    "@coreui/icons-react": "^2.3.0",
+    "@coreui/react": "^5.4.1",
     "@emotion/react": "^11.14.0",
     "@emotion/style": "^0.8.0",
     "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.0",
     "@mui/material": "^6.4.0",
     "@mui/x-data-grid-pro": "^7.23.6",
-    "axios": "^1.7.9"
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3"
   }
 }
