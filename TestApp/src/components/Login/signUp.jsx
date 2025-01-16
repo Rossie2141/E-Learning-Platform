@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Button, TextField, Typography, Box, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,15 +10,31 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    // Simple validation check
+    setError(''); // Clear previous errors
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
-    // Successful sign-up, redirect to Login page
-    navigate('/login');
+    try {
+      const response = await fetch('http://localhost:8080/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        // Redirect to the login page on successful sign-up
+        navigate('/login');
+      } else {
+        setError(result.error || 'Sign-up failed.');
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.',error);
+    }
   };
 
   const handleLoginRedirect = () => {
