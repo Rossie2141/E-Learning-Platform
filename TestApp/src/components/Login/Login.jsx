@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, TextField, Typography, Box, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,19 +9,28 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Hardcoded credentials for simulation
-    if (email === 'user@example.com' && password === 'password123') {
-      // Successful login, redirect to the Home page
-      navigate('/home');
-    } else {
-      setError('Invalid credentials, please try again.');
+
+    try {
+      const response = await axios.post('http://localhost:8080/login', {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        navigate('/home');
+      }
+    } catch (error) {
+      if (error.response && error.response.data.error) {
+        setError(error.response.data.error);
+      } else {
+        setError('An unexpected error occurred. Please try again later.');
+      }
     }
   };
 
   const handleSignUpRedirect = () => {
-    // Navigate to the sign-up page
     navigate('/signup');
   };
 
@@ -52,7 +62,7 @@ const Login = () => {
       </form>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button variant="text" color="primary" onClick={handleSignUpRedirect} sx={{ marginRight: '10px' }}>
-            Dont have an account?Sign Up
+          Don't have an account? Sign Up
         </Button>
       </Box>
     </Box>
