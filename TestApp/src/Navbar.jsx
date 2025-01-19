@@ -48,7 +48,7 @@ const Navbar = () => {
                 />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem href="/my-courses">My Courses</CDropdownItem>
+                <CDropdownItem href="/mydashboard">My Dashboard</CDropdownItem>
                 <CDropdownItem href="/certifications">Certifications</CDropdownItem>
                 <CDropdownItem href="/">Sign Out</CDropdownItem>
               </CDropdownMenu>

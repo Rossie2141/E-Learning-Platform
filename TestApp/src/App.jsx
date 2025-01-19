@@ -3,8 +3,10 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Courses from './components/Home/Courses';
 import SignUp from './components/Login/signUp';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import MyDashboard from './components/Dashboard/MyDashboard';
 import Navbar from './Navbar'; // Import the Navbar
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
 
 // Wrapper component to handle conditional rendering of Navbar
 const AppLayout = () => {
@@ -20,6 +22,7 @@ const AppLayout = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/mydashboard" element={<MyDashboard />} />
       </Routes>
     </>
   );

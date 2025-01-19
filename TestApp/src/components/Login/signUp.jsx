@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Button, TextField, Typography, Box, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,11 +8,13 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(''); // State for success message
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError(''); // Clear previous errors
+    setSuccess(''); // Clear previous success messages
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
@@ -27,13 +29,15 @@ const SignUp = () => {
       });
       const result = await response.json();
       if (response.ok) {
-        // Redirect to the login page on successful sign-up
-        navigate('/');
+        setSuccess('Account created successfully! Redirecting to login...');
+        setTimeout(() => {
+          navigate('/'); // Redirect to the login page after 2 seconds
+        }, 2000);
       } else {
         setError(result.error || 'Sign-up failed.');
       }
     } catch (error) {
-      setError('An error occurred. Please try again.',error);
+      setError('An error occurred. Please try again.');
     }
   };
 
@@ -43,9 +47,21 @@ const SignUp = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 400, margin: '50px auto', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-      <Typography variant="h4" align="center" sx={{ marginBottom: '20px' }}>Sign Up</Typography>
+    <Box
+      sx={{
+        width: '100%',
+        maxWidth: 400,
+        margin: '50px auto',
+        padding: '20px',
+        backgroundColor: '#f5f5f5',
+        borderRadius: '8px',
+      }}
+    >
+      <Typography variant="h4" align="center" sx={{ marginBottom: '20px' }}>
+        Sign Up
+      </Typography>
       {error && <Alert severity="error">{error}</Alert>}
+      {success && <Alert severity="success">{success}</Alert>}
       <form onSubmit={handleSignUp}>
         <TextField
           label="Name"
@@ -81,7 +97,13 @@ const SignUp = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <Button variant="contained" color="primary" fullWidth type="submit" sx={{ marginBottom: '10px' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          type="submit"
+          sx={{ marginBottom: '10px' }}
+        >
           Sign Up
         </Button>
       </form>
